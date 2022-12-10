@@ -1,8 +1,18 @@
-import xlsxwriter
-import PyPDF2
+from .cenums import ExportFormat
 from .get_data import get_data
-import json
+from .pdf_exporter import export_to_pdf
+from .xlsx_exporter import export_to_xlsx
 
-def get_report():
-    data = get_data()
-    print(data)
+def get_report(url, auth, report_format = ExportFormat.Excel):
+    data = get_data(url, auth)
+    print(f'Exporting to : {report_format}', end='\n\n')
+
+    if report_format == ExportFormat.PDF:
+        export_to_pdf(data = data)
+
+    elif report_format == ExportFormat.Excel:
+        export_to_xlsx(data = data)
+
+    else:
+        print('Exporter not supported !!!')
+

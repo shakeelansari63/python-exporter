@@ -1,6 +1,6 @@
 from setuptools import setup
 
-install_requires = ['xlsxwriter', 'pypdf2']
+install_requires = ['xlsxwriter', 'pypdf2', 'requests']
 
 setup(
     #basic package data
@@ -14,6 +14,6 @@ setup(
     long_description='',
     keywords = ('export pdf xlsx'),
     classifiers = [],
-    packages=['exporter'],
+    packages=['pyexport'],
     install_requires=install_requires,
     )

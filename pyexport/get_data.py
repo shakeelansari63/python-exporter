@@ -1,17 +1,13 @@
 import requests
-import base64
 
-def get_data():
-    api_key = 'CXSvg9Rjz8CVvy7oi5963768qQwWHJ3l'
-
-    auth = requests.auth.HTTPBasicAuth(api_key, '')
-
-    url = 'https://api.sandbox.invoiced.com/invoices/10030138'
-
+def get_data(url, auth = None):
     req = requests.get(url, auth=auth)
     data = req.json()
 
     return data
+
+def create_basic_auth(username, password):
+    return requests.auth.HTTPBasicAuth(username, password)
 
 if __name__ == '__main__':
     get_data()
