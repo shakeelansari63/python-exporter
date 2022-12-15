@@ -1,6 +1,6 @@
 from setuptools import setup
 
-install_requires = ['xlsxwriter', 'pypdf2', 'requests']
+install_requires = ['xlsxwriter', 'pypdf2', 'requests', 'PyYAML']
 
 setup(
     #basic package data
@@ -16,4 +16,4 @@ setup(
     classifiers = [],
     packages=['pyexport'],
     install_requires=install_requires,
-    )
+)

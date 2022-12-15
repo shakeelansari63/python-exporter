@@ -1,4 +1,5 @@
 import PyPDF2
 
-def export_to_pdf(data):
+def export_to_pdf(data, template):
+    print(template)
     print(data)
