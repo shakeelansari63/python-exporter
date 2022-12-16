@@ -1,12 +1,12 @@
 head:
   - name: Title
-    data: Invoice - ${{ invoice_number }}
+    data: Invoice - ${{ number }}
     start: [0, 0]
     colspan: 5
     align: center
   
   - name: Company Name
-    data: ${{ company_name }}
+    data: ${{ name }}
     start: [2, 0]
     align: left
 
@@ -36,74 +36,74 @@ head:
     align: left
 
   - name: Customer Name
-    data: ${{ customer_name }}
-    start: [2, 5]
+    data: ${{ ship_to.name }}
+    start: [2, 4]
     align: right
 
   - name: Customer Address Line 1
-    data: ${{ customer_address_line1 }}
-    start: [3, 5]
+    data: ${{ ship_to.address1 }}
+    start: [3, 4]
     align: right
 
   - name: Customer Address Line 2
-    data: ${{ customer_address_line2 }}
-    start: [4, 5]
+    data: ${{ ship_to.address2 }}
+    start: [4, 4]
     align: right
 
   - name: Customer Address City
-    data: ${{ customer_address_city }}
-    start: [5, 5]
+    data: ${{ ship_to.city }}
+    start: [5, 4]
     align: right
 
   - name: Customer Address State
-    data: ${{ customer_address_state }}
-    start: [6, 5]
+    data: ${{ ship_to.state }}
+    start: [6, 4]
     align: right
 
-  - name: Customer Address Pincode
-    data: ${{ customer_address_pincode }}
-    start: [7, 5]
+  - name: Customer Address Postalcode
+    data: ${{ ship_to.postal_code }}
+    start: [7, 4]
     align: right
 
-tables:
-  - name: Items Table
-    data: ${{ items }}
-    start: [9, 0]
-    showheader: true
-    showborder: true
-    fields:
-      - name: Item
-        data: ${{ item }}
+table:
+  name: Items Table
+  data: ${{ items }}
+  start: [9, 0]
+  header: true
+  border: true
+  columns:
+    - name: Item
+      data: ${{ catalog_item }}
 
-      - name: Unit Price
-        data: ${{ unit_price }}
+    - name: Unit Price
+      data: ${{ unit_cost }}
 
-      - name: Quantity
-        data: ${{ quantity }}
+    - name: Quantity
+      data: ${{ quantity }}
 
-      - name: Tax
-        data: ${{ tax }}
+    - name: Tax
+      data: ${{ tax }}
 
-      - name: Total Price
-        data: ${{ total_price }}
+    - name: Total Price
+      data: ${{ amount }}
 
 foot:
   - name: Total Label
-    start: ['${{ max_row }} + 2', 4]
+    start: ['${{ max_row }} + 2', 3]
     data: Total
     align: right
 
   - name: Total Amount
-    start: ['${{ max_row }} + 2', 5]
-    data: ${{ total_amount }}
-    align: left
-
-  - name: paid Label
-    start: ['${{ max_row }} + 4', 4]
-    data: paid
+    start: ['${{ max_row }}', 4]
+    data: ${{ total }}
     align: right
 
-  - name: Total Paid
-    start: ['${{ max_row }} + 4', 5]
-    data: ${{ total_paid }}
-    align: left
+  - name: Balance Label
+    start: ['${{ max_row }} + 2', 3]
+    data: Balance
+    align: right
+
+  - name: Total Balance
+    start: ['${{ max_row }}', 4]
+    data: ${{ balance }}
+    align: right

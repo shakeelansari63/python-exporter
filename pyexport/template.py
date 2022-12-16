@@ -15,12 +15,12 @@ def _type_parser(obj):
         return output
 
     elif type(obj) == type(''):
-        var_regx = re.compile(r"\$\{\{\s*[a-z0-9\_]{1,}\s*\}\}", re.I)
+        var_regx = re.compile(r"\$\{\{\s*[a-z0-9\_\.]{1,}\s*\}\}", re.I)
         var_found = var_regx.findall(obj)
 
         for yaml_var in var_found:
-            std_var = yaml_var.replace(' ', '')
-            obj = obj.replace(yaml_var, std_var)
+            strd_var = yaml_var.replace(' ', '')
+            obj = obj.replace(yaml_var, strd_var)
         return obj
     
     else:
