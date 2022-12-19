@@ -12,10 +12,10 @@ def generate_report(data, report_format = ExportFormat.Excel, template = Templat
     data_template = parse_template(template, report_format)
     
     if report_format == ExportFormat.PDF:
-        export_to_pdf(data = data, template = data_template)
+        export_to_pdf(data = data, template = data_template, template_name = template.name)
 
     elif report_format == ExportFormat.Excel:
-        export_to_xlsx(data = data, template = data_template)
+        export_to_xlsx(data = data, template = data_template, template_name = template.name)
 
     else:
         print('Exporter not supported !!!')

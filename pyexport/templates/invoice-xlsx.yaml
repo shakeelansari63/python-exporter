@@ -1,74 +1,77 @@
 head:
   - name: Title
     data: Invoice - ${{ number }}
-    start: [0, 0]
+    start: [1, 1]
     colspan: 5
+    bgcolor: 99CC00
+    fgcolor: FF33CC
+    bold: true
     align: center
   
   - name: Company Name
     data: ${{ name }}
-    start: [2, 0]
+    start: [3, 1]
     align: left
 
   - name: Company Address Line 1
     data: ${{ company_address_line1 }}
-    start: [3, 0]
+    start: [4, 1]
     align: left
 
   - name: Company Address Line 2
     data: ${{ company_address_line2 }}
-    start: [4, 0]
+    start: [5, 1]
     align: left
 
   - name: Company Address City
     data: ${{ company_address_city }}
-    start: [5, 0]
+    start: [6, 1]
     align: left
 
   - name: Company Address State
     data: ${{ company_address_state }}
-    start: [6, 0]
+    start: [7, 1]
     align: left
 
   - name: Company Address Pincode
     data: ${{ company_address_pincode }}
-    start: [7, 0]
+    start: [8, 1]
     align: left
 
   - name: Customer Name
     data: ${{ ship_to.name }}
-    start: [2, 4]
+    start: [3, 5]
     align: right
 
   - name: Customer Address Line 1
     data: ${{ ship_to.address1 }}
-    start: [3, 4]
+    start: [4, 5]
     align: right
 
   - name: Customer Address Line 2
     data: ${{ ship_to.address2 }}
-    start: [4, 4]
+    start: [5, 5]
     align: right
 
   - name: Customer Address City
     data: ${{ ship_to.city }}
-    start: [5, 4]
+    start: [6, 5]
     align: right
 
   - name: Customer Address State
     data: ${{ ship_to.state }}
-    start: [6, 4]
+    start: [7, 5]
     align: right
 
   - name: Customer Address Postalcode
     data: ${{ ship_to.postal_code }}
-    start: [7, 4]
+    start: [8, 5]
     align: right
 
 table:
   name: Items Table
   data: ${{ items }}
-  start: [9, 0]
+  start: [10, 1]
   header: true
   border: true
   columns:
@@ -89,21 +92,21 @@ table:
 
 foot:
   - name: Total Label
-    start: ['${{ max_row }} + 2', 3]
+    start: ['${{ max_row }} + 2', 4]
     data: Total
     align: right
 
   - name: Total Amount
-    start: ['${{ max_row }}', 4]
+    start: ['${{ max_row }}', 5]
     data: ${{ total }}
     align: right
 
   - name: Balance Label
-    start: ['${{ max_row }} + 2', 3]
+    start: ['${{ max_row }} + 2', 4]
     data: Balance
     align: right
 
   - name: Total Balance
-    start: ['${{ max_row }}', 4]
+    start: ['${{ max_row }}', 5]
     data: ${{ balance }}
     align: right
