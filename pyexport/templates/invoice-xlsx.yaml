@@ -3,6 +3,7 @@ head:
     data: Invoice - ${{ number }}
     start: [1, 1]
     colspan: 5
+    rowspan: 2
     bgcolor: 99CC00
     fgcolor: FF33CC
     bold: true

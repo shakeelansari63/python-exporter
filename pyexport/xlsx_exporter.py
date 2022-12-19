@@ -1,9 +1,7 @@
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Side, Color, Font, PatternFill
-import re
 from .cenums import TemplateName
-
-max_row = 0
+from .template import replace_var, update_max_row
     
 def export_to_xlsx(data, template, template_name: TemplateName):
     wb = Workbook()
@@ -22,9 +20,7 @@ def export_to_xlsx(data, template, template_name: TemplateName):
 
     wb.save('Output.xlsx')
             
-
 def generate_static_section_export(section, workbook, worksheet, inp_data):
-    global max_row
     for field in section:
         field_data = replace_var( field['data'] if 'data' in field.keys() else '', inp_data)
         position = replace_var( field['start'] if 'start' in field.keys() else [0, 0], inp_data)
@@ -46,8 +42,7 @@ def generate_static_section_export(section, workbook, worksheet, inp_data):
         if type(position[1]) == type(''):
             position[1] = eval(position[1])
 
-        if position[0] > max_row:
-            max_row = position[0]
+        update_max_row(position[0])
 
         if colspan > 1 or rowspan > 1:
             worksheet.merge_cells(start_row = position[0], 
@@ -72,7 +67,6 @@ def generate_static_section_export(section, workbook, worksheet, inp_data):
             cell.font = Font(bold = bold, color = fgcolor)
 
 def generate_table_section_export(section, workbook, worksheet, inp_data):
-    global max_row
     table_data = replace_var(section['data'] if 'data' in section.keys() else [], inp_data)
     position = replace_var( section['start'] if 'start' in section.keys() else [0, 0], inp_data)
     header = replace_var( section['header'] if 'header' in section.keys() else True, inp_data)
@@ -104,54 +98,5 @@ def generate_table_section_export(section, workbook, worksheet, inp_data):
                                      top = Side(border_style=None, color='000000', style='thin'),
                                      bottom = Side(border_style=None, color='000000', style='thin'))
 
-    if max_row < position[0] + row_idx:
-        max_row = position[0] + row_idx
+    update_max_row(position[0] + row_idx)
 
-def replace_var(field, data):
-    variable_regex = re.compile(r"\$\{\{([a-z0-9\_\.]{1,})\}\}", re.I)
-
-    if type(field) == type(''):
-        template_variables = variable_regex.findall(field)
-
-        for template_variable in template_variables:
-            variable_value = ''
-
-            if template_variable == 'max_row':
-                variable_value = str(max_row)
-
-            elif template_variable in data.keys():
-                variable_value = data[template_variable]
-
-            elif '.' in template_variable:
-                subfields = template_variable.split('.')
-                subdata = data
-                notfound = 0
-                for subfield in subfields:
-                    if subfield in subdata.keys():
-                        subdata = subdata[subfield]
-                    else:
-                        notfound = 1
-                        break
-
-                if notfound == 0:
-                    variable_value = subdata
-
-            if type(variable_value) != type('') and field.strip() == f'${{{{{template_variable}}}}}':
-                field = variable_value
-
-            else:
-                field = field.replace(f'${{{{{template_variable}}}}}', variable_value)
-                
-        return field
-
-    elif type(field) == type(dict()):
-        for fl in field.keys():
-            field[fl] = replace_var(field[fl], data)
-        
-        return field
-
-    elif type(field) == type([]):
-        return [replace_var(fl, data) for fl in field]
-    
-    else:
-        return field
