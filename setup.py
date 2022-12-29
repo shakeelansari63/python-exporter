@@ -1,6 +1,6 @@
 from setuptools import setup
 
-install_requires = ['xlsxwriter', 'pypdf2', 'requests', 'PyYAML']
+install_requires = ['openpyxl', 'pypdf2', 'requests', 'PyYAML']
 
 setup(
     #basic package data

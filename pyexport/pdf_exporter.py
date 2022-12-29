@@ -1,5 +1,5 @@
-import PyPDF2
+from PyPDF2 import PdfWriter
+from .template import replace_var
 
 def export_to_pdf(data, template):
-    print(template)
-    print(data)
+    pass
